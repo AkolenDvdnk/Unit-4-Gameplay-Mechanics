@@ -4,7 +4,6 @@ public class Enemy : MonoBehaviour
 {
     public float speed;
 
-
     private Rigidbody rb;
     private Vector3 lookDirection;
     private GameObject player;
