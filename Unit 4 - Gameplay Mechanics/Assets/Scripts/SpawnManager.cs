@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    public GameObject enemyPrefab;
-    public GameObject powerupPrefab;
+    public GameObject[] powerups;
+    public GameObject[] enemies;
 
     private float spawnRange = 9f;
 
@@ -20,8 +18,14 @@ public class SpawnManager : MonoBehaviour
     {
         for (int i = 0; i < enemiesToSpawn; i++)
         {
-            Instantiate(enemyPrefab, GenerateSpawnPosition(), enemyPrefab.transform.rotation);
+            int enemyIndex = Random.Range(0, enemies.Length);
+            Instantiate(enemies[enemyIndex], GenerateSpawnPosition(), enemies[enemyIndex].transform.rotation);
         }
+    }
+    private void SpawnPowerup()
+    {
+        int powerupIndex = Random.Range(0, powerups.Length);
+        Instantiate(powerups[powerupIndex], GenerateSpawnPosition(), powerups[powerupIndex].transform.rotation);
     }
     private Vector3 GenerateSpawnPosition()
     {
@@ -40,7 +44,7 @@ public class SpawnManager : MonoBehaviour
             SpawnEnemy(waveNumber);
             waveNumber++;
 
-            Instantiate(powerupPrefab, GenerateSpawnPosition(), powerupPrefab.transform.rotation);
+            SpawnPowerup();
         }
     }
 }
