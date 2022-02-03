@@ -16,8 +16,20 @@ public class Enemy : MonoBehaviour
     }
     private void Update()
     {
+        MoveEnemy();
+        DestroyEnemy();
+    }
+    private void MoveEnemy()
+    {
         lookDirection = (player.transform.position - transform.position).normalized;
 
         rb.AddForce(lookDirection * speed);
+    }
+    private void DestroyEnemy()
+    {
+        if (transform.position.y < -10)
+        {
+            Destroy(gameObject);
+        }
     }
 }
