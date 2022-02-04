@@ -744,10 +744,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1ddb45dbdf50eb45b31c35730bbca97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bossRound: 1
   powerups:
   - {fileID: 7282775303918760067, guid: e4e725f6a38928f4599b2da623d6b3a7, type: 3}
   - {fileID: 7646054820875178563, guid: 272d249df74a5744997e5a9443ac7b98, type: 3}
   - {fileID: 6310726006275693164, guid: 2e32412d216ec1b4397be049c412328b, type: 3}
+  boss: {fileID: 8498364997458807528, guid: eb8eb17c9a0c8e24cb7897815319dd58, type: 3}
   enemies:
   - {fileID: 8498364997458807528, guid: d8d8ff36126313f4c83f0aea1c72566f, type: 3}
   - {fileID: 8498364997458807528, guid: f8b69578db6691042abdcc7e6151689a, type: 3}

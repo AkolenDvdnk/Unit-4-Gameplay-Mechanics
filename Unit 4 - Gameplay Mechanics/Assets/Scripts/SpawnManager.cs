@@ -2,17 +2,25 @@
 
 public class SpawnManager : MonoBehaviour
 {
+    public int bossRound;
+
     public GameObject[] powerups;
+    public GameObject boss;
     public GameObject[] enemies;
 
     private float spawnRange = 9f;
 
     private int enemyCount;
-    private int waveNumber = 1;
+    private int waveNumber;
 
     private void Update()
     {
-        SpawnWave();
+        SpawnWave();   
+    }
+    private void SpawnBoss()
+    {
+        Instantiate(boss, GenerateSpawnPosition(), boss.transform.rotation);
+        return;
     }
     private void SpawnWave()
     {
@@ -20,8 +28,16 @@ public class SpawnManager : MonoBehaviour
 
         if (enemyCount == 0)
         {
-            SpawnEnemy(waveNumber);
             waveNumber++;
+
+            if (waveNumber == bossRound)
+            {
+                SpawnBoss();
+            }
+            else
+            {
+                SpawnEnemy(waveNumber);
+            }
 
             SpawnPowerup();
         }
