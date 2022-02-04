@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     [Header("Unity stuff")]
     public Transform focalPoint;
 
+    private float verticalInput;
+
     private Rigidbody rb;
 
     private void Awake()
@@ -16,14 +18,12 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
-        MovePlayer();
+        verticalInput = Input.GetAxis("Vertical");
     }
-    private void MovePlayer()
+    private void FixedUpdate()
     {
         if (!PlayerAbility.instance.isSmashing)
         {
-            float verticalInput = Input.GetAxis("Vertical");
-
             rb.AddForce(focalPoint.forward * speed * verticalInput);
         }
     }
