@@ -4,18 +4,39 @@ using UnityEngine;
 
 public class PlayerAbility : MonoBehaviour
 {
+    public static PlayerAbility instance;
+
     public PowerupType currentPowerup = PowerupType.None;
-
-    public float powerupStrength = 15f;
-    public float powerupTime = 5f;
-
     [HideInInspector] public bool hasPowerup;
 
+    public float powerupTime = 5f;
+
+    [Header("Push")]
+    public float pushStrength = 15f;
+
+    [Header("Smash")]
+    public float jumpTime;
+    public float smashSpeed;
+    public float explosionForce;
+    public float explosionRadius;
+
+    public bool isSmashing = false;
+
+    [Header("Unity Stuff")]
     public GameObject rocketPrefab;
     public GameObject powerupIndicator;
 
     private Coroutine powerupCountdown;
+    private Rigidbody rb;
 
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();   
+    }
+    private void Start()
+    {
+        instance = this;
+    }
     private void Update()
     {
         IndicatorBehavior();
@@ -28,7 +49,7 @@ public class PlayerAbility : MonoBehaviour
             Rigidbody enemyRb = other.gameObject.GetComponent<Rigidbody>();
             Vector3 awayFromPlayer = (other.gameObject.transform.position - transform.position);
 
-            enemyRb.AddForce(awayFromPlayer * powerupStrength, ForceMode.Impulse);
+            enemyRb.AddForce(awayFromPlayer * pushStrength, ForceMode.Impulse);
         }
     }
     private void CheckInput()
@@ -36,6 +57,12 @@ public class PlayerAbility : MonoBehaviour
         if (currentPowerup == PowerupType.Rocket && Input.GetKeyDown(KeyCode.F))
         {
             LaunchRockets();
+        }
+
+        if (currentPowerup == PowerupType.Smash && Input.GetKeyDown(KeyCode.Space) && !isSmashing)
+        {
+            isSmashing = true;
+            StartCoroutine(Smash());
         }
     }
     private void LaunchRockets()
@@ -74,6 +101,31 @@ public class PlayerAbility : MonoBehaviour
         hasPowerup = false;
         currentPowerup = PowerupType.None;
     }
+    private IEnumerator Smash()
+    {
+        float floor = transform.position.y;
+        float _jumpTime = Time.time + jumpTime;
+
+        while (Time.time < _jumpTime)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, smashSpeed);
+            yield return null;
+        }
+
+        while (transform.position.y > floor)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, -smashSpeed * 2f);
+            yield return null;
+        }
+
+        foreach (var enemy in FindObjectsOfType<Enemy>())
+        {
+            enemy.GetComponent<Rigidbody>().AddExplosionForce(explosionForce, transform.position,
+                explosionRadius, 0f, ForceMode.Impulse);
+        }
+
+        isSmashing = false;
+    }
     private void IndicatorBehavior()
     {
         powerupIndicator.transform.position = transform.position + new Vector3(0, -0.5f, 0);
@@ -85,6 +137,13 @@ public class PlayerAbility : MonoBehaviour
         else
         {
             powerupIndicator.SetActive(false);
+        }
+    }
+    private void OnDrawGizmos()
+    {
+        if (currentPowerup == PowerupType.Smash)
+        {
+            Gizmos.DrawWireSphere(transform.position, explosionRadius);
         }
     }
 }

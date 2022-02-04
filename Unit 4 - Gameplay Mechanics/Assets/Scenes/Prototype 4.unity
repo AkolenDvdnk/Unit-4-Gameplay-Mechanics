@@ -703,9 +703,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentPowerup: 0
-  powerupStrength: 15
-  powerupTime: 55
   hasPowerup: 0
+  powerupTime: 7
+  pushStrength: 15
+  jumpTime: 0.5
+  smashSpeed: 20
+  explosionForce: 25
+  explosionRadius: 10
+  isSmashing: 0
   rocketPrefab: {fileID: 2201232356795797798, guid: e93abecbce7e80c46bff3be96e6b8430,
     type: 3}
   powerupIndicator: {fileID: 1058361096}
@@ -741,6 +746,7 @@ MonoBehaviour:
   powerups:
   - {fileID: 7282775303918760067, guid: e4e725f6a38928f4599b2da623d6b3a7, type: 3}
   - {fileID: 7646054820875178563, guid: 272d249df74a5744997e5a9443ac7b98, type: 3}
+  - {fileID: 6310726006275693164, guid: 2e32412d216ec1b4397be049c412328b, type: 3}
   enemies:
   - {fileID: 8498364997458807528, guid: d8d8ff36126313f4c83f0aea1c72566f, type: 3}
   - {fileID: 8498364997458807528, guid: f8b69578db6691042abdcc7e6151689a, type: 3}

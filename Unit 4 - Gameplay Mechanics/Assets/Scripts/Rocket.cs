@@ -7,10 +7,8 @@ public class Rocket : MonoBehaviour
     public float speed;
     public float strength;
 
-    private bool homing;
-
     private Transform target;
-
+    
     private void Update()
     {
         if (target == null)
@@ -19,12 +17,9 @@ public class Rocket : MonoBehaviour
             return;
         }
 
-        if (homing && target != null)
-        {
-            Vector3 dir = target.position - transform.position;
-            transform.position += dir.normalized * speed * Time.deltaTime;
-            transform.LookAt(target);
-        }
+        Vector3 dir = target.position - transform.position;
+        transform.position += dir.normalized * speed * Time.deltaTime;
+        transform.LookAt(target);
     }
     private void OnCollisionEnter(Collision other)
     {
@@ -42,6 +37,5 @@ public class Rocket : MonoBehaviour
     public void Fire(Transform _target)
     {
         target = _target;
-        homing = true;
     }
 }

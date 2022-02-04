@@ -3,8 +3,6 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
-    public static PlayerController instance;
-
     public float speed;
 
     [Header("Unity stuff")]
@@ -16,20 +14,17 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
     }
-    private void Start()
-    {
-        instance = this;
-    }
     private void Update()
     {
         MovePlayer();
     }
     private void MovePlayer()
     {
-        float verticalInput = Input.GetAxis("Vertical");
+        if (!PlayerAbility.instance.isSmashing)
+        {
+            float verticalInput = Input.GetAxis("Vertical");
 
-        rb.AddForce(focalPoint.forward * speed * verticalInput);
+            rb.AddForce(focalPoint.forward * speed * verticalInput);
+        }
     }
-
-
 }
