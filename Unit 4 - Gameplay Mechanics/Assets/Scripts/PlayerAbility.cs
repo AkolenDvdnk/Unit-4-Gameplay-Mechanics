@@ -7,9 +7,11 @@ public class PlayerAbility : MonoBehaviour
     public static PlayerAbility instance;
 
     public PowerupType currentPowerup = PowerupType.None;
-    [HideInInspector] public bool hasPowerup;
 
     public float powerupTime = 5f;
+    public float fireRate = 1f;
+
+    private float fireCountdown;
 
     [Header("Push")]
     public float pushStrength = 15f;
@@ -20,7 +22,8 @@ public class PlayerAbility : MonoBehaviour
     public float explosionForce;
     public float explosionRadius;
 
-    public bool isSmashing = false;
+    [HideInInspector] public bool hasPowerup;
+    [HideInInspector] public bool isSmashing = false;
 
     [Header("Unity Stuff")]
     public GameObject rocketPrefab;
@@ -40,7 +43,7 @@ public class PlayerAbility : MonoBehaviour
     private void Update()
     {
         IndicatorBehavior();
-        CheckInput();
+        CheckPowerup();
     }
     private void OnCollisionEnter(Collision other)
     {
@@ -52,9 +55,9 @@ public class PlayerAbility : MonoBehaviour
             enemyRb.AddForce(awayFromPlayer * pushStrength, ForceMode.Impulse);
         }
     }
-    private void CheckInput()
+    private void CheckPowerup()
     {
-        if (currentPowerup == PowerupType.Rocket && Input.GetKeyDown(KeyCode.F))
+        if (currentPowerup == PowerupType.Rocket)
         {
             LaunchRockets();
         }
@@ -67,10 +70,17 @@ public class PlayerAbility : MonoBehaviour
     }
     private void LaunchRockets()
     {
-        foreach (var enemy in FindObjectsOfType<Enemy>())
+        if (Time.time > fireCountdown)
         {
-            GameObject tmpRocket = Instantiate(rocketPrefab, transform.position + Vector3.up, Quaternion.identity);
-            tmpRocket.GetComponent<Rocket>().Fire(enemy.transform);
+            foreach (var enemy in FindObjectsOfType<Enemy>())
+            {
+                if (enemy != null)
+                {
+                    GameObject tmpRocket = Instantiate(rocketPrefab, transform.position + Vector3.up, Quaternion.identity);
+                    tmpRocket.GetComponent<Rocket>().Fire(enemy.transform);
+                }
+            }
+            fireCountdown = Time.time + fireRate;
         }
     }
     private void OnTriggerEnter(Collider other)
