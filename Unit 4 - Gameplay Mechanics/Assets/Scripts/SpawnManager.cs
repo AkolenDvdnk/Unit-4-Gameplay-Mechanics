@@ -14,6 +14,18 @@ public class SpawnManager : MonoBehaviour
     {
         SpawnWave();
     }
+    private void SpawnWave()
+    {
+        enemyCount = FindObjectsOfType<Enemy>().Length;
+
+        if (enemyCount == 0)
+        {
+            SpawnEnemy(waveNumber);
+            waveNumber++;
+
+            SpawnPowerup();
+        }
+    }
     private void SpawnEnemy(int enemiesToSpawn)
     {
         for (int i = 0; i < enemiesToSpawn; i++)
@@ -34,17 +46,5 @@ public class SpawnManager : MonoBehaviour
 
         Vector3 spawnPos = new Vector3(spawnPosX, 0, spawnPosZ);
         return spawnPos;
-    }
-    private void SpawnWave()
-    {
-        enemyCount = FindObjectsOfType<Enemy>().Length;
-
-        if (enemyCount == 0)
-        {
-            SpawnEnemy(waveNumber);
-            waveNumber++;
-
-            SpawnPowerup();
-        }
     }
 }
