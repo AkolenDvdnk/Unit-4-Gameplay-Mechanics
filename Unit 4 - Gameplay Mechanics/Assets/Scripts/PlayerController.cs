@@ -4,6 +4,8 @@ public class PlayerController : MonoBehaviour
 {
     public float speed;
 
+    public GameObject endGameText;
+
     [Header("Unity stuff")]
     public Transform focalPoint;
 
@@ -31,6 +33,7 @@ public class PlayerController : MonoBehaviour
     {
         if (transform.position.y < -10)
         {
+            endGameText.SetActive(true);
             Destroy(gameObject);
         }
     }

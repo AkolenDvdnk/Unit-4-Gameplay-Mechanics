@@ -11,7 +11,7 @@ public class Minion : MonoBehaviour
 
     private void Update()
     {
-        if (Boss.instance == null)
+        if (Boss.instance == null || PlayerAbility.instance == null)
             return;
 
         Fire();

@@ -76,14 +76,17 @@ public class SpawnManager : MonoBehaviour
     }
     private void BossPowerup()
     {
-        if (isBossRound)
+        if (Boss.instance != null)
         {
-            countdown -= Time.deltaTime;
-            if (countdown <= 0)
+            if (isBossRound)
             {
-                countdown = bossPowerupSpawnRate;
-                int powerupIndex = Random.Range(0, powerups.Length);
-                Instantiate(powerups[powerupIndex], GenerateSpawnPosition(), powerups[powerupIndex].transform.rotation);
+                countdown -= Time.deltaTime;
+                if (countdown <= 0)
+                {
+                    countdown = bossPowerupSpawnRate;
+                    int powerupIndex = Random.Range(0, powerups.Length);
+                    Instantiate(powerups[powerupIndex], GenerateSpawnPosition(), powerups[powerupIndex].transform.rotation);
+                }
             }
         }
     }
