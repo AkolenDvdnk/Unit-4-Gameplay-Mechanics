@@ -18,12 +18,20 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         verticalInput = Input.GetAxis("Vertical");
+        DestroyPlayer();
     }
     private void FixedUpdate()
     {
         if (!PlayerAbility.instance.isSmashing)
         {
             rb.AddForce(focalPoint.forward * speed * verticalInput);
+        }
+    }
+    private void DestroyPlayer()
+    {
+        if (transform.position.y < -10)
+        {
+            Destroy(gameObject);
         }
     }
 }

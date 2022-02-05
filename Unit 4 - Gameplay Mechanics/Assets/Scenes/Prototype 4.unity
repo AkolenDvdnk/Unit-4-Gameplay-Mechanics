@@ -703,7 +703,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentPowerup: 0
-  powerupTime: 7
+  powerupTime: 5
   fireRate: 0.5
   pushStrength: 15
   jumpTime: 0.5
@@ -745,7 +745,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bossPowerupSpawnRate: 4
-  bossRound: 1
+  bossRound: 4
   powerups:
   - {fileID: 7282775303918760067, guid: e4e725f6a38928f4599b2da623d6b3a7, type: 3}
   - {fileID: 7646054820875178563, guid: 272d249df74a5744997e5a9443ac7b98, type: 3}

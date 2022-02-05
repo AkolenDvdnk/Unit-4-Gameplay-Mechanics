@@ -39,8 +39,10 @@ public class SpawnManager : MonoBehaviour
     {
         enemyCount = FindObjectsOfType<Enemy>().Length;
 
-        if (enemyCount == 0)
+        if (enemyCount == 0 && waveNumber < bossRound)
         {
+            PlayerAbility.instance.currentPowerup = PowerupType.None;
+            PlayerAbility.instance.hasPowerup = false;
             waveNumber++;
 
             if (waveNumber == bossRound)

@@ -20,7 +20,8 @@ public class Enemy : MonoBehaviour
     }
     private void MoveEnemy()
     {
-        lookDirection = (player.transform.position - transform.position).normalized;
+        if (player != null)
+         lookDirection = (player.transform.position - transform.position).normalized;
 
         rb.AddForce(lookDirection * speed);
     }

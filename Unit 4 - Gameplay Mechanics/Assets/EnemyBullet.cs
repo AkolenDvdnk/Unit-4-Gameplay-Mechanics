@@ -14,7 +14,8 @@ public class EnemyBullet : MonoBehaviour
     }
     private void Start()
     {
-        direction = (player.transform.position - transform.position).normalized;
+        if (PlayerAbility.instance != null)
+         direction = (player.transform.position - transform.position).normalized;
 
         Destroy(gameObject, 5f);
     }
