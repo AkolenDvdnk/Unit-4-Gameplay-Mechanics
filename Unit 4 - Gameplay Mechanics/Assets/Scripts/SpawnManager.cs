@@ -2,6 +2,8 @@
 
 public class SpawnManager : MonoBehaviour
 {
+    public static SpawnManager instance;
+
     public int bossRound;
 
     public GameObject[] powerups;
@@ -13,6 +15,10 @@ public class SpawnManager : MonoBehaviour
     private int enemyCount;
     private int waveNumber;
 
+    private void Start()
+    {
+        instance = this;
+    }
     private void Update()
     {
         SpawnWave();   
@@ -55,7 +61,7 @@ public class SpawnManager : MonoBehaviour
         int powerupIndex = Random.Range(0, powerups.Length);
         Instantiate(powerups[powerupIndex], GenerateSpawnPosition(), powerups[powerupIndex].transform.rotation);
     }
-    private Vector3 GenerateSpawnPosition()
+    public Vector3 GenerateSpawnPosition()
     {
         float spawnPosX = Random.Range(-spawnRange, spawnRange);
         float spawnPosZ = Random.Range(-spawnRange, spawnRange);
