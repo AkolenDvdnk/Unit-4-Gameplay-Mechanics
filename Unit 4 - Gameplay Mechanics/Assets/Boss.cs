@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
+    public static Boss instance;
+
     public GameObject minionPrefab;
 
     private void Start()
     {
+        instance = this;
+
         StartCoroutine(SpawnMinions());
     }
     private IEnumerator SpawnMinions()
@@ -18,7 +22,7 @@ public class Boss : MonoBehaviour
 
             Instantiate(minionPrefab, SpawnManager.instance.GenerateSpawnPosition(), transform.rotation);
 
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(4f);
         }
     }
 }

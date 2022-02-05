@@ -11,6 +11,13 @@ public class Minion : MonoBehaviour
 
     private void Update()
     {
+        if (Boss.instance == null)
+            return;
+
+        Fire();
+    }
+    private void Fire()
+    {
         if (Time.time > fireCountdown)
         {
             Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
@@ -18,5 +25,4 @@ public class Minion : MonoBehaviour
             fireCountdown = Time.time + fireRate;
         }
     }
-    
 }

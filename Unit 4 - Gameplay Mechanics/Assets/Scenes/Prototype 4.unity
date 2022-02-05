@@ -744,6 +744,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1ddb45dbdf50eb45b31c35730bbca97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bossPowerupSpawnRate: 4
   bossRound: 1
   powerups:
   - {fileID: 7282775303918760067, guid: e4e725f6a38928f4599b2da623d6b3a7, type: 3}

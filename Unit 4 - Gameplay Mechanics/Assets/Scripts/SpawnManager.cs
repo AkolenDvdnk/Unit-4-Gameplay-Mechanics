@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class SpawnManager : MonoBehaviour
 {
     public static SpawnManager instance;
+
+    public float bossPowerupSpawnRate = 3f;
 
     public int bossRound;
 
@@ -12,8 +15,11 @@ public class SpawnManager : MonoBehaviour
 
     private float spawnRange = 9f;
 
+    private float countdown;
     private int enemyCount;
     private int waveNumber;
+
+    private bool isBossRound = false;
 
     private void Start()
     {
@@ -21,7 +27,8 @@ public class SpawnManager : MonoBehaviour
     }
     private void Update()
     {
-        SpawnWave();   
+        SpawnWave();
+        BossPowerup();
     }
     private void SpawnBoss()
     {
@@ -38,6 +45,7 @@ public class SpawnManager : MonoBehaviour
 
             if (waveNumber == bossRound)
             {
+                isBossRound = true;
                 SpawnBoss();
             }
             else
@@ -58,8 +66,24 @@ public class SpawnManager : MonoBehaviour
     }
     private void SpawnPowerup()
     {
-        int powerupIndex = Random.Range(0, powerups.Length);
-        Instantiate(powerups[powerupIndex], GenerateSpawnPosition(), powerups[powerupIndex].transform.rotation);
+        if (!isBossRound)
+        {
+            int powerupIndex = Random.Range(0, powerups.Length);
+            Instantiate(powerups[powerupIndex], GenerateSpawnPosition(), powerups[powerupIndex].transform.rotation);
+        }
+    }
+    private void BossPowerup()
+    {
+        if (isBossRound)
+        {
+            countdown -= Time.deltaTime;
+            if (countdown <= 0)
+            {
+                countdown = bossPowerupSpawnRate;
+                int powerupIndex = Random.Range(0, powerups.Length);
+                Instantiate(powerups[powerupIndex], GenerateSpawnPosition(), powerups[powerupIndex].transform.rotation);
+            }
+        }
     }
     public Vector3 GenerateSpawnPosition()
     {
