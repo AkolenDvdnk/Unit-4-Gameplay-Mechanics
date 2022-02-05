@@ -34,6 +34,8 @@ public class PlayerController : MonoBehaviour
         if (transform.position.y < -10)
         {
             endGameText.SetActive(true);
+            PlayerAbility.instance.currentPowerup = PowerupType.None;
+            PlayerAbility.instance.hasPowerup = false;
             Destroy(gameObject);
         }
     }
